@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Onibus;
+import persistence.GenericDAO;
+import persistence.OnibusDAO;
 
 public class OnibusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -65,30 +68,43 @@ public class OnibusServlet extends HttpServlet {
 			}
 			
 		} catch(SQLException | ClassNotFoundException e) {
-			
+			erro = e.getMessage();
 		} finally {
+			request.setAttribute("saida", saida);
+			request.setAttribute("erro", erro);
 			
 		}
 		
 	}
-	private void cadastrarOnibus(Onibus o) {
-		
-		
+	private void cadastrarOnibus(Onibus o) throws ClassNotFoundException, SQLException {
+		GenericDAO gDao = new GenericDAO();
+		OnibusDAO oDao = new OnibusDAO(gDao);
+		oDao.inserir(o);
+		listarOnibus();
 	}
-	private void alterarOnibus(Onibus o) {
-		
-		
+	private void alterarOnibus(Onibus o) throws ClassNotFoundException, SQLException {
+		GenericDAO gDao = new GenericDAO();
+		OnibusDAO oDao = new OnibusDAO(gDao);
+		oDao.atualizar(o);
+		listarOnibus();
 	}
-	private void excluirOnibus(Onibus o) {
-		
-		
+	private void excluirOnibus(Onibus o) throws ClassNotFoundException, SQLException {
+		GenericDAO gDao = new GenericDAO();
+		OnibusDAO oDao = new OnibusDAO(gDao);
+		oDao.excluir(o);
+		listarOnibus();
+
 	}
-	private Onibus buscarOnibus(Onibus o) {
-		
-		return null;
+	private Onibus buscarOnibus(Onibus o) throws ClassNotFoundException, SQLException {
+		GenericDAO gDao = new GenericDAO();
+		OnibusDAO oDao = new OnibusDAO(gDao);
+		o = oDao.consultar(o);
+		return o;
 	}
-	private List<Onibus> listarOnibus() {
-		
-		return null;
+	private List<Onibus> listarOnibus() throws ClassNotFoundException, SQLException {
+		GenericDAO gDao = new GenericDAO();
+		OnibusDAO oDao = new OnibusDAO(gDao);
+		List<Onibus> onibus = oDao.listar();
+		return onibus;
 	}
 }
