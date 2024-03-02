@@ -9,14 +9,13 @@ public class GenericDAO {
 	
 	public Connection getConnection() throws ClassNotFoundException, SQLException{
 		String hostname = "localhost";
-		String dbname = "rodoviaria";
-		String user = "sa";
-		String pass = "luiz2002";
+		String port = ":1433;";
+		String dbname = "databaseName=rodoviaria;";
+		String user = "user=sa;";
+		String pass = "password=luiz2002";
+		String uri = "jdbc:jtds:sqlserver://"+hostname+port+dbname+user+pass;
 		Class.forName("net.sourceforge.jtds.jdbc.Driver");
-		c = DriverManager.getConnection(String.format(
-				"jdbc:jtds:sqlserver://%s:1433;databaseName=%s;user=%s;password=%s",
-				hostname, dbname, user, pass)
-			);
+		c = DriverManager.getConnection(uri);
 		return c;
 	}
 }

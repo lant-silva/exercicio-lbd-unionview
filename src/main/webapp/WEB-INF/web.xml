@@ -4,14 +4,4 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>OnibusServlet</display-name>
-    <servlet-name>OnibusServlet</servlet-name>
-    <servlet-class>controller.OnibusServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OnibusServlet</servlet-name>
-    <url-pattern>/onibus</url-pattern>
-  </servlet-mapping>
 </web-app>

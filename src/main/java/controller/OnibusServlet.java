@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +15,7 @@ import model.Onibus;
 import persistence.GenericDAO;
 import persistence.OnibusDAO;
 
+@WebServlet("/onibus")
 public class OnibusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -72,9 +75,12 @@ public class OnibusServlet extends HttpServlet {
 		} finally {
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
+			request.setAttribute("onibus", o);
+			request.setAttribute("onibuss", onibus);
 			
+			RequestDispatcher rd = request.getRequestDispatcher("onibus.jsp");
+			rd.forward(request, response);
 		}
-		
 	}
 	private void cadastrarOnibus(Onibus o) throws ClassNotFoundException, SQLException {
 		GenericDAO gDao = new GenericDAO();
@@ -93,7 +99,6 @@ public class OnibusServlet extends HttpServlet {
 		OnibusDAO oDao = new OnibusDAO(gDao);
 		oDao.excluir(o);
 		listarOnibus();
-
 	}
 	private Onibus buscarOnibus(Onibus o) throws ClassNotFoundException, SQLException {
 		GenericDAO gDao = new GenericDAO();
