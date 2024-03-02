@@ -64,7 +64,7 @@ public class ViagemDAO implements ICrud<Viagem>{
 	@Override
 	public Viagem consultar(Viagem v) throws SQLException, ClassNotFoundException {
 		Connection c = gDao.getConnection();
-		String sql = "SELECT codigo, onibus, motorista, hora_saida, hora_chegada, partida, destino FROM viagem WHERE codigo = ?";
+		String sql = "SELECT v.codigo, o.placa, m.codigo, v.hora_saida, v.hora_chegada, v.partida, v.destino FROM viagem v, onibus o, motorista m WHERE v.codigo = ? AND o.placa = v.onibus AND m.codigo = v.motorista";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setInt(1, v.getCodigo());
 		ResultSet rs = ps.executeQuery();
@@ -87,7 +87,7 @@ public class ViagemDAO implements ICrud<Viagem>{
 	public List<Viagem> listar() throws SQLException, ClassNotFoundException {
 		List<Viagem> viagens = new ArrayList<>();
 		Connection c = gDao.getConnection();
-		String sql = "SELECT codigo, onibus, motorista, hora_saida, hora_chegada, partida, destino FROM viagem";
+		String sql = "SELECT v.codigo, o.placa, m.codigo, v.hora_saida, v.hora_chegada, v.partida, v.destino FROM viagem v, onibus o, motorista m WHERE o.placa = v.onibus AND m.codigo = v.motorista";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
