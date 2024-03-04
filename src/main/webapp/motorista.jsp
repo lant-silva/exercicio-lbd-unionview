@@ -61,14 +61,14 @@
 			</H2>
 		</c:if>
 	</div>
+	<br />
 	<div align="center">
-		<c:if test="${not empty saida }">
-			<H3>
-				<b><c:out value="${saida }" /></b>
-			</H3>
+		<c:if test="${not empty erro }">
+			<H2>
+				<b><c:out value="${erro }" /></b>
+			</H2>
 		</c:if>
 	</div>
-	<br />
 	<div align="center">
 		<c:if test="${not empty motoristas }">
 			<table class="table_round">

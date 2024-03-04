@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./css/styles.css">
 <meta charset="ISO-8859-1">
 <title>CRUD Viagem</title>
 </head>
@@ -70,10 +71,117 @@
 							value="Excluir"></td>
 						<td><input type="submit" id="botao" name="botao"
 							value="Listar"></td>
+							<td><input type="submit" id="botao" name="botao"
+							value="View Onibus"></td>
+						<td><input type="submit" id="botao" name="botao"
+							value="View Viagens"></td>
 					</tr>
+					<br/>
 				</table>
 			</form>
 		</div>
+	</div>
+	<br />
+	<div align="center">
+		<c:if test="${not empty erro }">
+			<H2>
+				<b><c:out value="${erro }" /></b>
+			</H2>
+		</c:if>
+	</div>
+	<br />
+	<div align="center">
+		<c:if test="${not empty erro }">
+			<H2>
+				<b><c:out value="${erro }" /></b>
+			</H2>
+		</c:if>
+	</div>
+	<div align="center">
+		<c:if test="${not empty tabela && tabela eq 'listar' }">
+			<table class="table_round">
+				<thead>
+					<tr>
+						<th>Codigo</th>
+						<th>Placa Onibus</th>
+						<th>Cod. Motorista</th>
+						<th>Horario Saída</th>
+						<th>Horario Chegada</th>
+						<th>Local de Partida</th>
+						<th>Local de Destino</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="v" items="${viagens}">
+						<tr>
+							<td><c:out value="${v.codigo}" /></td>
+							<td><c:out value="${v.onibus}" /></td>
+							<td><c:out value="${v.motorista}" /></td>
+							<td><c:out value="${v.hora_saida}" /></td>
+							<td><c:out value="${v.hora_chegada}" /></td>
+							<td><c:out value="${v.partida}" /></td>
+							<td><c:out value="${v.destino}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+	</div>
+	<div align="center">
+		<c:if test="${not empty tabela && tabela eq 'vonibus'}">
+			<table class="table_round">
+				<thead>
+					<tr>
+						<th>Cod. Viagem</th>
+						<th>Nome Motorista</th>
+						<th>Placa Onibus</th>
+						<th>Marca Onibus</th>
+						<th>Ano Onibus</th>
+						<th>Desc. Onibus</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="v" items="${viagens}">
+						<tr>
+							<td><c:out value="${v.codigo}" /></td>
+							<td><c:out value="${v.motorista.nome}" /></td>
+							<td><c:out value="${v.onibus.placa}" /></td>
+							<td><c:out value="${v.onibus.marca}" /></td>
+							<td><c:out value="${v.onibus.ano}" /></td>
+							<td><c:out value="${v.onibus.descricao}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+	</div>
+	<div align="center">
+		<c:if test="${not empty tabela && tabela eq 'vmotoristas'}">
+			<table class="table_round">
+				<thead>
+					<tr>
+						<th>Cod. Viagem</th>
+						<th>Placa Onibus</th>
+						<th>Hora Saida</th>
+						<th>Hora Chegada</th>
+						<th>Partida</th>
+						<th>Destino</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="v" items="${viagens}">
+						<tr>
+							<td><c:out value="${v.codigo}" /></td>
+							<td><c:out value="${v.onibus.placa}" /></td>
+							<td><c:out value="${v.hora_saida}" /></td>
+							<td><c:out value="${v.hora_chegada}" /></td>
+							<td><c:out value="${v.partida}" /></td>
+							<td><c:out value="${v.destino}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
 	</div>
 </body>
 </html>
